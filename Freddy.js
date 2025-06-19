@@ -1,6 +1,7 @@
 /**
  * Freddy™ is a cool, silly and basic AI that can backpropagate and learn number operations.
  * Today, June 17th 2025, is when Freddy.js v1.0 was finished.
+ * June 19th, checked some errors.
  * Me [Kenay, creator of this] will guide you neuron by neuron, layer by layer, and Freddy by Freddy. ™.
  */
 
@@ -11,8 +12,10 @@
 class FredBox {
   /** 
    * Functions: 'sigmoid', 'tanh', 'relu', 'linear', 'cut2fit' (don't use the last two)
+   *
    * The folowing derivatives asumme you first used the og function.
-   * So, use sigmoidDerivative(sigmoid(x)) and tanhDerivative(tanh(x)) to get the true values.
+   * So, use sigmoidDx(sigmoid(x)) and tanhDx(tanh(x)) to get the true values.
+   *
    * NEVER FORGET: If you wanna add a function 'xyz()', don't forget 'xyzDx()' for everything to work.
    */
     static sigmoid(x) {
@@ -119,12 +122,9 @@ class FredBox {
    * @return         The refilled array.
    */
     static refill(data, length, filling) { 
-        const filled = Array.from({ length: data.length }, (_, i) => //get the length and data indexes
-            data.hasOwnProperty(i) ? data[i] : filling //If blank, fill.
-        );
-        while (filled.length < length) { //While short,
-            filled.push(filling); //fill.
-        }
+        const filled = [...data].map((v, i) => (data.hasOwnProperty(i) ? v : 'blank')); //If empty, fill.
+        while (filled.length < length) //If shorter,
+            filled.push('blank'); //fill.
         return filled;
     }
 }
