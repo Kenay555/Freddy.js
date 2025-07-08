@@ -1,7 +1,6 @@
 /**
  * Freddy™ is a cool, silly and basic AI that can backpropagate and learn number operations.
  * Today, June 17th 2025, is when Freddy.js v1.0 was finished.
- * June 19th, checked some errors.
  * Me [Kenay, creator of this] will guide you neuron by neuron, layer by layer, and Freddy by Freddy. ™.
  */
 
@@ -122,9 +121,9 @@ class FredBox {
    * @return         The refilled array.
    */
     static refill(data, length, filling) { 
-        const filled = [...data].map((v, i) => (data.hasOwnProperty(i) ? v : 'blank')); //If empty, fill.
+        const filled = [...data].map((v, i) => (data.hasOwnProperty(i) ? v : (v === null) ? v : filling)); //If empty, fill.
         while (filled.length < length) //If shorter,
-            filled.push('blank'); //fill.
+            filled.push(filling); //fill.
         return filled;
     }
 }
@@ -134,6 +133,14 @@ class FredBox {
  * Random weights and delta thingies await!
  */
 class Neu {
+  static randomWs(length) {
+    let ws = [];
+    // Guess random weights now
+    for (let i = 0; i < length; i++) {
+      ws.push(Math.random() * 2 - 1); // Between -1 and 1
+    }
+    return ws;
+  }
   /**
    * The Neu constructor will make a new neuron with random values.
    * The neuFunction is taken from the FredBox library we just passed over.
@@ -142,17 +149,13 @@ class Neu {
    * @param neuFunction  The name of the function it'll use.
    * @return             The neuron ready to go.
    */
-    constructor(numInputs, neuFunction = 'sigmoid') {
-        this.weights = [];
-        this.bias = Math.random() * 2 - 1; // Random between -1 and 1
+    constructor(numInputs, neuFunction = 'sigmoid', weights = [], bias) {
+        this.weights = typeof weights === 'object' ? weights : Neu.randomWs(numInputs);
+        this.bias = bias === undefined ? (Math.random() * 2 - 1) : bias; // Random between -1 and 1
         this.neuFunction = neuFunction;
         this.output = 0;
         this.delta = 0;
         this.inputs = [];
-        // Guess random weights now
-        for (let i = 0; i < numInputs; i++) {
-            this.weights.push(Math.random() * 2 - 1); // Between -1 and 1
-        }
     }
 
   /**
@@ -203,9 +206,7 @@ class Neu {
     }
 }
 
-Neu.Nandy = new Neu(2, 'cut2fit');
-Neu.Nandy.weights = [-2, -2];
-Neu.Nandy.bias = 3;
+Neu.Nandy = new Neu(2, 'cut2fit', [-2, -2], 3);
 
 /**
  * Now, if we lay many neurons, we'll get a layer
@@ -287,7 +288,7 @@ class Layer {
 
 /**
  * Lastly, there's the brain, Freddy himself.
- * Freddy is born without knowledge. You are in charge of teaching him.
+ * Freddy is born without knowledge. You are now in charge of teaching him.
  */
 class Freddy {
   /**
