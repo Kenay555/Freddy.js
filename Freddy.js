@@ -1,6 +1,7 @@
 /**
  * Freddy™ is a cool, silly and basic AI that can backpropagate and learn number operations.
- * Today, June 17th 2025, is when Freddy.js v1.0 was finished.
+ * June 17th 2025 is when Freddy.js v1.0 was finished.
+ * Today, July 13th 2025, is when Freddy.js v1.1 was ready.
  * Me [Kenay, creator of this] will guide you neuron by neuron, layer by layer, and Freddy by Freddy. ™.
  */
 
@@ -15,7 +16,7 @@ class FredBox {
    * The folowing derivatives asumme you first used the og function.
    * So, use sigmoidDx(sigmoid(x)) and tanhDx(tanh(x)) to get the true values.
    *
-   * NEVER FORGET: If you wanna add a function 'xyz()', don't forget 'xyzDx()' for everything to work.
+   * NEVER FORGET: If you wanna add a function 'xyz(a)', don't forget 'xyzDx(a)' for everything to work.
    */
     static sigmoid(x) {
         return 1 / (1 + Math.exp(-x));
@@ -85,6 +86,18 @@ class FredBox {
             { inputs: [0, 1], outputs: [1] },
             { inputs: [1, 0], outputs: [1] },
             { inputs: [1, 1], outputs: [0] }
+        ];
+    }
+    static sum() {
+        return [
+            { inputs: [0, 0, 0], outputs: [0, 0] },
+            { inputs: [0, 0, 1], outputs: [0, 1] },
+            { inputs: [0, 1, 0], outputs: [0, 1] },
+            { inputs: [1, 0, 0], outputs: [0, 1] },
+            { inputs: [0, 1, 1], outputs: [1, 0] },
+            { inputs: [1, 0, 1], outputs: [1, 0] },
+            { inputs: [1, 1, 0], outputs: [1, 0] },
+            { inputs: [1, 1, 1], outputs: [1, 1] }
         ];
     }
 
@@ -430,7 +443,7 @@ class Freddy {
             for (let neuron of layer.neurons) {
                 layerWeights.push({
                     weights: [...neuron.weights],
-                    bias: neuron.bias
+                    bias: neuron.bias + 0
                 }); //Pack all weights
             }
             weights.push(layerWeights); //And close the box
@@ -456,7 +469,7 @@ class Freddy {
   /**
    * fred.toJSON() exports the Freddy™
    * @return  A VERY SILLY REALLY WIERD SUPER DUPER MEGA OBJECT™
-   * VSRWSDMO™ object packages include:
+   * AVSRWSDMO™ object packages include:
    * - This Freddy™'s .architecture
    * - The .learningRate of the Freddy™
    * - An array of .weights
