@@ -634,12 +634,15 @@ class Freddy {
  * Esta fue la familia Freddy™: Mate2, Neu, Capa y Freddy.
  * Sólo hay una cosa por hacer: criar a un Freddy.
  */
-if (typeof module !== 'undefined' && module?.exports) {
-  module.exports = {
-    Mate2,
-    Biblioteca,
-    Neu,
-    Capa,
-    Freddy,
-  };
+const FamiliaFreddy = {
+  Mate2,
+  Biblioteca,
+  Neu,
+  Capa,
+  Freddy,
 }
+if (typeof module !== 'undefined' && module?.exports) {
+  module.exports = FamiliaFreddy
+}
+export FamiliaFreddy
+
