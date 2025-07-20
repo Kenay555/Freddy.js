@@ -6,7 +6,7 @@
 /**
  * 17 de Junio del 2025 es cunado Freddy.js v1.0 fue terminado.
  * 13 de Julio es cuando Freddy.js v1.1 estuvo listo
- * Hoy, 20 de Julio, es cuando tradusco este archivo al español, y la versión v1.2 estuvo lista
+ * Hoy, 14 de Julio, es cuando tradusco este archivo al español
  *
  * Ni crean que me copié esto de algún gringo, todo ha sido escrito por mí,
  * mi única excusa es que sólo leía articulos en ingles, y se me pegó...
@@ -219,10 +219,6 @@ const Biblioteca = {
   /**
    * Ejemplitos :3
    */
-  not: [
-    { entradas: [1], salidas: [0] },
-    { entradas: [0], salidas: [1] },
-  ],
   xor: [
     { entradas: [0, 0], salidas: [0] },
     { entradas: [0, 1], salidas: [1] },
@@ -612,7 +608,7 @@ class Freddy {
    * - En otro Freddy, use el método .deJSON para subir los datos.
    * Peligro: Hay chance que no se vinculen, entrenar a uno tal vez no entrene al otro.
    */
-  aJSON() {
+  get aJSON() {
     return {
       arquitectura: this.arquitectura,
       ritmo: this.ritmo,
@@ -638,11 +634,12 @@ class Freddy {
  * Esta fue la familia Freddy™: Mate2, Neu, Capa y Freddy.
  * Sólo hay una cosa por hacer: criar a un Freddy.
  */
-export {
-  Mate2,
-  Biblioteca,
-  Neu,
-  Capa,
-  Freddy,
+if (typeof module !== 'undefined' && module?.exports) {
+  module.exports = {
+    Mate2,
+    Biblioteca,
+    Neu,
+    Capa,
+    Freddy,
+  };
 }
-
