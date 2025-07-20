@@ -219,6 +219,10 @@ const Biblioteca = {
   /**
    * Ejemplitos :3
    */
+  not: [
+    { entradas: [1], salidas: [0] },
+    { entradas: [0], salidas: [1] },
+  ],
   xor: [
     { entradas: [0, 0], salidas: [0] },
     { entradas: [0, 1], salidas: [1] },
@@ -243,7 +247,7 @@ const Biblioteca = {
     { entradas: [1, 0], salidas: [1] },
     { entradas: [1, 1], salidas: [0] },
   ],
-  sum: [
+  suma: [
     { entradas: [0, 0, 0], salidas: [0, 0] },
     { entradas: [0, 0, 1], salidas: [0, 1] },
     { entradas: [0, 1, 0], salidas: [0, 1] },
