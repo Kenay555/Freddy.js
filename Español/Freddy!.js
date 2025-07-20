@@ -6,7 +6,7 @@
 /**
  * 17 de Junio del 2025 es cunado Freddy.js v1.0 fue terminado.
  * 13 de Julio es cuando Freddy.js v1.1 estuvo listo
- * Hoy, 14 de Julio, es cuando tradusco este archivo al español
+ * Hoy, 20 de Julio, es cuando tradusco este archivo al español, y la versión v1.2 estuvo lista
  *
  * Ni crean que me copié esto de algún gringo, todo ha sido escrito por mí,
  * mi única excusa es que sólo leía articulos en ingles, y se me pegó...
