@@ -4,6 +4,10 @@
 
   /**                        Este es el núcleo de Freddy. Hecho por mí! Versión 1.0.1 en 19/6/25            **/
   /**                        This is Freddy's core. Made by me! Version 1.0.1 on 19/6/25            **/
+
+  /** 
+   * @todo Actualizar el código
+   */
 class FredBox {
     static sigmoid(x) { return 1 / (1 + Math.exp(-x)) }
     static sigmoidDx(x) { return x * (1 - x) }
