@@ -3,7 +3,7 @@
  * Yo [Kenay, creador de esto] te guiaré neurona por neurona, capa por capa, y Freddy por Freddy. ™.
  */
 
-/**
+/*
  * 17 de Junio del 2025 es cunado Freddy.js v1.0 fue terminado.
  * 13 de Julio es cuando Freddy.js v1.1 estuvo listo
  * Hoy, 14 de Julio, es cuando tradusco este archivo al español
@@ -11,16 +11,6 @@
  * Ni crean que me copié esto de algún gringo, todo ha sido escrito por mí,
  * mi única excusa es que sólo leía articulos en ingles, y se me pegó...
  * No es que no halla documentos sobre IAs en español, sólo prefiero los angloparlantes.
- */
-
-/*
- * Varias cosas cambio no sólo para diferenciarla de la otra versión,
- * también para adecuarlo a este lenguaje.
- *
- * Number => Número, Racional
- * String => Cadena, Frase
- * Array => Tupla
- * Boolean => Binario
  *
  * Y una cosita más: Este no es idéntico a su contraparte ingles,
  * que ese la escribí en la madrugada, y este lo escribo durante el día.
@@ -173,46 +163,9 @@ const Mate2 = {
    * @return          La tupla rellenita.
    * Nota que acá usamos Math.random() como relleno
    */
-  tipode: function (dato, palabra = typeof dato) {
-    switch (palabra) {
-      case 'string':
-        return [true, 'cadena'];
-      case 'number':
-        return [false, 'racional'];
-      case 'boolean':
-        return [false, 'binario'];
-      case 'object':
-        return Array.isArray(dato)
-          ? [true, 'tupla']
-          : dato === null
-          ? [false, 'nulo']
-          : [false, 'objeto'];
-      case 'bigint':
-        return [false, 'entero'];
-      case 'undefined':
-        return [false, 'indefinido'];
-      case 'function':
-        return [true, 'función'];
-      case 'symbol':
-        return [false, 'símbolo'];
-    }
-  },
 };
 const inesperar = x => {
-  return isFinite(x) && !isNaN(x) && x == undefined;
-};
-const siNoEsTupla_lánzate = (x, n) => {
-  if (Array.isArray(x)) return;
-  let tipo = Mate2.tipode(x);
-  let a = tipo[0] ? 'a' : '';
-  console.error(`Esperábamos una tupla (${n})`, x, tipo[1]);
-  throw Error(
-    `Un${tipo[0] ? 'a' : ''} ${tipo[1]} inesperad${tipo[0] ? 'a' : 'o'}`,
-    { cause: `Esperábamos una tupla` }
-  );
-  throw Error(`Esperábamos una tupla`, {
-    cause: `Recibimos un${tipo[0] ? 'a' : ''} ${tipo[1]}`,
-  });
+  return !isFinite(x) || !isNaN(x) || x == undefined
 };
 
 const Biblioteca = {
@@ -287,8 +240,12 @@ class Neu {
    * @param entradas  La tupla de números como entrada
    * @return          El número de salida
    */
-  activar(entradas) {
-    siNoEsTupla_lánzate(entradas, 'Neu.activar');
+  activar(entradas) { 
+    if (!Array.isArray(entradas) 
+      throw Error(
+        `Esperábamos una tupla (Neu.activar)`,
+        { cause: `Recibimos: ${typeof entradas}` }
+      );
     let pesos = this.pesos;
     this.entradas = entradas;
     // Primero, suma
@@ -453,7 +410,11 @@ class Freddy {
    * Esta fue mi solución.
    */
   armaRed(arquitectura, funciones = null) {
-    siNoEsTupla_lánzate(arquitectura, 'Freddy.armaRed');
+    if (!Array.isArray(arquitectura)) 
+      throw Error(
+        `Esperábamos una tupla (Freddy.armaRed)`,
+        { cause: `Recibimos: ${typeof arquitectura}` }
+      );
     let longitud = arquitectura.length;
     if (longitud <= 1) {
       console.error('Capa inesperada (Freddy.armaRed)', arquitectura, longitud);
@@ -494,7 +455,11 @@ class Freddy {
    * [ahí viene]
    */
   entrenar(ejemplos, épocas = 1000, verboso = false) {
-    siNoEsTupla_lánzate(ejemplos, 'Freddy.entrenar');
+    if (!Array.isArray(ejemplos)) 
+      throw Error(
+        `Esperábamos una tupla (Freddy.entrenar)`,
+        { cause: `Recibimos: ${typeof ejemplos}` }
+      );
     for (let e = 0; e < épocas; e++) {
       let error_total = 0;
       // Entrena por ccada ejemplo
