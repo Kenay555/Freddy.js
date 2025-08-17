@@ -6,7 +6,9 @@
 /*
  * 17 de Junio del 2025 es cunado Freddy.js v1.0 fue terminado.
  * 13 de Julio es cuando Freddy.js v1.1 estuvo listo
- * Hoy, 14 de Julio, es cuando tradusco este archivo al español
+ * 14 de Julio es cuando tradusco este archivo al español
+ *
+ * Hoy es 17 de Agosto. No hay mucho que ver...
  *
  * Ni crean que me copié esto de algún gringo, todo ha sido escrito por mí,
  * mi única excusa es que sólo leía articulos en ingles, y se me pegó...
@@ -88,7 +90,7 @@ const Mate2 = {
   },
   /**
    * Mate2.oneHot() hará una one-hot tupla (puros ceros y un uno)
-   * @param indice    Donde estará el uno.
+   * @param {number} indice    Donde estará el uno.
    * @param longitud  La longitud de la tupla.
    * @return          La one-hot tupla.
    */
@@ -106,6 +108,7 @@ const Mate2 = {
    * @return          La tupla rellenita.
    */
   rellena: function (datos, relleno, longitud) {
+    if (!datos) return Array(longitud).fill(relleno);
     const tupla = [...datos].map((v, i) =>
       datos.hasOwnProperty(i) ? v : v === null ? v : relleno
     ); //Si está vacío, rellena
@@ -125,6 +128,7 @@ const Mate2 = {
    */
   repesar: function (datos, longitud) {
     //Lo mismo, pero con Math.random()
+    if (!datos) return Array(longitud).fill(0).map((e, i, a) => Math.random());
     const tupla = [...datos].map((v, i) =>
       data.hasOwnProperty(i) ? v : v === null ? v : Math.random()
     );
@@ -165,7 +169,7 @@ const Mate2 = {
    */
 };
 const inesperar = x => {
-  return !isFinite(x) || !isNaN(x) || x == undefined
+  return !isFinite(x) || isNaN(x) || x == undefined
 };
 
 const Biblioteca = {
@@ -241,7 +245,7 @@ class Neu {
    * @return          El número de salida
    */
   activar(entradas) { 
-    if (!Array.isArray(entradas) 
+    if (!Array.isArray(entradas)) 
       throw Error(
         `Esperábamos una tupla (Neu.activar)`,
         { cause: `Recibimos: ${typeof entradas}` }
@@ -448,11 +452,11 @@ class Freddy {
   }
 
   /**
-   * fred.entrenar() starts the training process
+   * fred.entrenar()  comienza el entrenamiento
    * @param ejemplos  Una tupla de objetos tipo {entradas: [tupla], salidas: [tupla]}
    * @param épocas    Cuántas veces deberá repasar
    * @param verboso   Ponlo en true si quieres escuchar todito
-   * [ahí viene]
+   * [un poco más...]
    */
   entrenar(ejemplos, épocas = 1000, verboso = false) {
     if (!Array.isArray(ejemplos)) 
@@ -464,15 +468,7 @@ class Freddy {
       let error_total = 0;
       // Entrena por ccada ejemplo
       for (let { entradas, salidas } of ejemplos) {
-        // Hacia adelante
-        const predicción = this.activar(entradas);
-        // Saca el error
-        let error = 0;
-        for (let i = 0; i < salidas.length; i++) {
-          error += Math.pow(salidas[i] - predicción[i], 2);
-        }
-        error_total += error / 2;
-        // Hacia atrás
+        error_total += this.diferencia(entradas, salidas);
         this.aprender(salidas);
       }
       // Si x00 o a punto de finalizar, regístralo
@@ -485,6 +481,22 @@ class Freddy {
           );
       }
     } //y otra vez
+  }
+
+  /**
+   * fred.diferencia() starts the training process
+   * @param entradas  Las entradas para comparar
+   * @param salidas   Las salidas que esperamos
+   * @return          La diferencia o error
+   * [ahí viene...]
+   */
+  diferencia(entradas, salidas) {
+    const predicción = this.activar(entradas);
+    let error = 0;
+    for (let i in salidas) {
+      error += Math.pow(salidas[i] - predicción[i], 2);
+    }
+    return error / 2;
   }
 
   /**
@@ -590,7 +602,7 @@ class Freddy {
   deJSON(config) {
     this.ritmo = config.ritmo;
     this.historial = config.historial;
-    this.buildNet(config.arquitectura, config.funciones);
+    this.armaRed(config.arquitectura, config.funciones);
     this.importaPesos(config.pesos);
   } //Y también importarlo
 }
